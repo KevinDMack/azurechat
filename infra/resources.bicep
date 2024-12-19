@@ -92,7 +92,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' = {
   location: location
   tags: tags
   properties: {
-    reserved: true
+    reserved: false
   }
   sku: {
     name: 'P0v3'
@@ -101,10 +101,10 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' = {
     family: 'Pv3'
     capacity: 1
   }
-  kind: 'linux'
+  kind: 'app'
 }
 
-resource webApp 'Microsoft.Web/sites@2020-06-01' = {
+resource webApp 'Microsoft.Web/sites@2024-04-01' = {
   name: webapp_name
   location: location
   tags: union(tags, { 'azd-service-name': 'frontend' })
@@ -112,7 +112,7 @@ resource webApp 'Microsoft.Web/sites@2020-06-01' = {
     serverFarmId: appServicePlan.id
     httpsOnly: true
     siteConfig: {
-      linuxFxVersion: 'node|18-lts'
+      // linuxFxVersion: 'node|18'
       alwaysOn: true
       appCommandLine: 'next start'
       ftpsState: 'Disabled'
