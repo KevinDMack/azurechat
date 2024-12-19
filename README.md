@@ -46,14 +46,45 @@ You can deploy the application using one of the following options:
 
 1. Download the [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/overview)
 1. If you have not cloned this repo, run `azd init -t microsoft/azurechat`. If you have cloned this repo, just run 'azd init' from the repo root directory.
+1. Run the following script to set to use node 18.17.0:
+```bash
+# Ensure nvm is loaded
+source "$NVM_DIR/nvm.sh"
+
+nvm install 18.17.0
+nvm use 18.17.0
+```
+
 1. Run `azd up` to provision and deploy the application
 
+**NOTE: If you are deploying to gov, run the following first:**
+```bash
+azd config set cloud.name AzureUSGovernment
+azd auth login # You will be prompted to log into azure government.  
+azd init -t microsoft/azurechat
+azd up
+
+# if you are wanting to see logs run with debug flag
+azd up --debug
+```
+
+The following will deploy for azure commercial:
 ```pwsh
 azd init -t microsoft/azurechat
 azd up
 
 # if you are wanting to see logs run with debug flag
 azd up --debug
+```
+
+**NOTE: If you are prompted to pull down the template or keep your existing files, select "keep my existing files."**
+
+## Deploying to a new environment:
+For deploying to a new environment, you would need to run the following steps:
+```bash
+rm -rf .azure
+azd init -t microsoft/azurechat
+azd up
 ```
 
 ### 2. Azure Portal Deployment
