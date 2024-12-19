@@ -36,3 +36,4 @@ next-env.d.ts
 infra/aad_setup.sh
 .vscode
 .azure
+package-lock.json
